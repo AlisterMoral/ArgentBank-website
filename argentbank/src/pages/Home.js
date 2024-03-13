@@ -1,10 +1,18 @@
 import React from 'react';
+import Header from '../component/Header';
+import HeroSection from '../component/Hero';
+import FeatureList from '../component/FeatureList';
+import Footer from '../component/Footer';
 
 function Home() {
   return (
     <div>
-      <h1>Home Page</h1>
-      <p>Welcome to the Home Page!</p>
+      <Header />
+      <main>
+        <HeroSection />
+        <FeatureList />
+      </main>
+      <Footer />
     </div>
   );
 }

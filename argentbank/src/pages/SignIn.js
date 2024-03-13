@@ -1,10 +1,14 @@
 import React from 'react';
+import Header from '../component/Header';
+import Footer from '../component/Footer';
+import SignInContent from '../component/SignInContent';
 
 function SignIn() {
   return (
     <div>
-      <h1>Sign In Page</h1>
-      <p>Please sign in to continue.</p>
+      <Header />
+      <SignInContent />
+      <Footer />
     </div>
   );
 }
