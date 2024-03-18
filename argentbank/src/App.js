@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import User from './pages/User.JS';
+import User from './pages/User';
 import SignIn from './pages/SignIn';
 import '@fortawesome/fontawesome-free/css/all.css';
 

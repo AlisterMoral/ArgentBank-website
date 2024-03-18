@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Importe Link depuis react-router-dom
 import '../styles/SignInContent.css';
 
 function SignInContent() {
@@ -20,7 +21,7 @@ function SignInContent() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <a href="./user.html" className="sign-in-button">Sign In</a>
+          <Link to="/user" className="sign-in-button">Sign In</Link> 
         </form>
       </section>
     </main>
