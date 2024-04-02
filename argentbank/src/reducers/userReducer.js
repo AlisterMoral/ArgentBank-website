@@ -25,7 +25,7 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             };
-       
+        
         case 'START_UPDATE_USER_PROFILE':
             return {
                 ...state,
