@@ -1,4 +1,3 @@
-
 const initialState = {
     user: null,
     loading: false,
@@ -25,6 +24,27 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload
+            };
+       
+        case 'START_UPDATE_USER_PROFILE':
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
+            case 'UPDATE_USER_PROFILE_SUCCESS':
+                return {
+                  ...state,
+                  user: action.payload.body, 
+                  loading: false,
+                  error: null,
+                };
+              
+        case 'UPDATE_USER_PROFILE_FAILURE':
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
             };
         default:
             return state;

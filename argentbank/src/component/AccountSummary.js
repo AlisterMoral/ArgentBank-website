@@ -1,13 +1,37 @@
-import React from 'react';
-import '../styles/AccountSummary.css'
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserProfile } from '../actions/userActions'; 
+import '../styles/AccountSummary.css';
 
 function AccountSummary() {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.user); 
+
+  const handleEdit = () => {
+    dispatch(updateUserProfile({ userName: newName })); 
+    setIsEditing(false);
+  };
+  
   return (
     <main className="main bg-dark">
-      <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
-        <button className="edit-button">Edit Name</button>
-      </div>
+       <div className="header">
+       <h1>Welcome back<br />{user ? user.userName : 'User'}</h1>
+      {isEditing ? (
+        <div>
+          <input
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+          <button onClick={handleEdit}>Save</button>
+        </div>
+      ) : (
+        <button onClick={() => setIsEditing(true)} className="edit-button">Edit Name</button>
+      )}
+    </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
