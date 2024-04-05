@@ -1,5 +1,6 @@
 const initialState = {
     user: null,
+    token: null, 
     loading: false,
     error: null
 };
@@ -15,7 +16,7 @@ const userReducer = (state = initialState, action) => {
         case 'LOGIN_SUCCESS':
             return {
                 ...state,
-                user: action.payload,
+                token: action.payload, 
                 loading: false,
                 error: null
             };
@@ -32,14 +33,13 @@ const userReducer = (state = initialState, action) => {
                 loading: true,
                 error: null,
             };
-            case 'UPDATE_USER_PROFILE_SUCCESS':
-                return {
-                  ...state,
-                  user: action.payload.body, 
-                  loading: false,
-                  error: null,
-                };
-              
+        case 'UPDATE_USER_PROFILE_SUCCESS':
+            return {
+                ...state,
+                user: action.payload, 
+                loading: false,
+                error: null,
+            };
         case 'UPDATE_USER_PROFILE_FAILURE':
             return {
                 ...state,

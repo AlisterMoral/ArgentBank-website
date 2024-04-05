@@ -8,13 +8,12 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = !!localStorage.getItem('userToken');
-  // Utilisation de useSelector pour accéder à l'état de l'utilisateur
+  
   const user = useSelector((state) => state.user.user);
 
   const handleSignOut = () => {
     localStorage.removeItem('userToken');
-    // Ajoute ici toute action de déconnexion si nécessaire, par exemple réinitialiser l'état de l'utilisateur
-    // dispatch({ type: 'USER_LOGOUT' });
+    
     navigate('/');
   };
 
@@ -31,12 +30,12 @@ function Header() {
       <div>
         {isLoggedIn ? (
           <div className="main-nav-items">
-            {/* Affiche le prénom de l'utilisateur s'il est connecté et les informations sont disponibles */}
+         
             {user && (
-              <div className="main-nav-item user-info">
-                <i className="fa fa-user-circle"></i>
-                {user.firstName}
-              </div>
+             <Link to="/user" className="main-nav-item user-info">
+             <i className="fa fa-user-circle"></i>
+             {user.firstName}
+           </Link>
             )}
             <div className="main-nav-item" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>

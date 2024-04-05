@@ -1,32 +1,29 @@
 export const loginUser = (email, password) => {
   return async (dispatch) => {
-    try {
-      const response = await fetch('http://localhost:3001/api/v1/user/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+      try {
+          const response = await fetch('http://localhost:3001/api/v1/user/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, password }),
+          });
 
-      if (!response.ok) {
-        const errorData = await response.json(); 
-        throw new Error(errorData.message || 'Email ou mot de passe incorrect');
+          if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || 'Email ou mot de passe incorrect');
+          }
+
+          const data = await response.json();
+          const token = data.body.token;
+          dispatch(loginSuccess(token)); 
+          localStorage.setItem('userToken', token);
+
+          dispatch(fetchUserProfile());
+      } catch (error) {
+          dispatch(loginFailure(error.message));
+          throw error;
       }
-
-      const data = await response.json();
-      const token = data.body.token;
-      dispatch(loginSuccess(token));
-      localStorage.setItem('userToken', token);
-
-     
-      dispatch(fetchUserProfile());
-    } catch (error) {
-      dispatch(loginFailure(error.message));
-      throw error; 
-    }
   };
 };
-
-
 
 
 export const loginSuccess = (token) => ({
@@ -78,7 +75,9 @@ export const updateUserProfile = (userData) => {
       }
 
       const updatedUser = await response.json();
-      dispatch(updateUserProfileSuccess(updatedUser));
+      localStorage.setItem('userInfo', JSON.stringify(updatedUser.body));
+      dispatch(updateUserProfileSuccess(updatedUser.body));
+      
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
     }
@@ -93,7 +92,7 @@ export const fetchUserProfile = () => {
     const token = localStorage.getItem('userToken');
     try {
       const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-        method: 'POST', 
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -104,15 +103,12 @@ export const fetchUserProfile = () => {
       }
 
       const updatedUser = await response.json();
-      localStorage.setItem('userInfo', JSON.stringify({
-        userName: updatedUser.userName, 
-        firstName: updatedUser.firstName
-      }));
+      console.log(updatedUser); 
+      localStorage.setItem('userInfo', JSON.stringify(updatedUser.body)); 
 
-      dispatch(updateUserProfileSuccess(updatedUser));
+      dispatch(updateUserProfileSuccess(updatedUser.body)); 
     } catch (error) {
       console.error('Error fetching user profile:', error);
-     
     }
   };
 };

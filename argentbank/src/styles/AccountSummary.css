@@ -94,3 +94,16 @@
     color: #fff; 
   }
   
+
+
+  @media (max-width: 920px){
+
+    .account{
+      flex-direction: column;
+    }
+
+    .transaction-button{
+      width: 100%;
+    }
+
+  }
