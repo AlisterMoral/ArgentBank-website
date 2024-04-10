@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import '../styles/Header.css';
-import argentBankLogo from '../img/argentBankLogo.png';
+import argentBankLogo from '../img/argentBankLogo.webp';
 
 function Header() {
   const navigate = useNavigate();

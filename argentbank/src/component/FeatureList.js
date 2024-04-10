@@ -1,8 +1,8 @@
 import React from 'react';
 import FeatureItem from '../component/FeatureItem';
-import ChatIcon from '../img/icon-chat.png';
-import MoneyIcon from '../img/icon-money.png';
-import SecurityIcon from '../img/icon-security.png';
+import ChatIcon from '../img/icon-chat.webp';
+import MoneyIcon from '../img/icon-money.webp';
+import SecurityIcon from '../img/icon-security.webp';
 import '../styles/Feature.css';
 
 function FeatureList() {
