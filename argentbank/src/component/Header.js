@@ -8,12 +8,10 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = !!localStorage.getItem('userToken');
-  
   const user = useSelector((state) => state.user.user);
 
   const handleSignOut = () => {
     localStorage.removeItem('userToken');
-    
     navigate('/');
   };
 
@@ -30,12 +28,11 @@ function Header() {
       <div>
         {isLoggedIn ? (
           <div className="main-nav-items">
-         
             {user && (
-             <Link to="/user" className="main-nav-item user-info">
-             <i className="fa fa-user-circle"></i>
-             {user.firstName}
-           </Link>
+              <Link to="/user" className="main-nav-item user-info">
+                <i className="fa fa-user-circle"></i>
+                {user.userName}  
+              </Link>
             )}
             <div className="main-nav-item" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>

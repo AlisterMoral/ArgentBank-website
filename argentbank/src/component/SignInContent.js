@@ -34,15 +34,15 @@ function SignInContent() {
         <h1>Sign In</h1>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <form onSubmit={(e) => e.preventDefault()}>
-          <div className="input-wrapper">
+          <div className="input">
             <label htmlFor="username">Username</label>
             <input type="text" id="username" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
-          <div className="input-wrapper">
+          <div className="input">
             <label htmlFor="password">Password</label>
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <div className="input-remember">
+          <div className="checkbox">
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile } from '../actions/userActions'; 
@@ -6,32 +5,64 @@ import '../styles/AccountSummary.css';
 
 function AccountSummary() {
   const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState('');
+  const [newUserName, setNewUserName] = useState('');
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.user); 
 
   const handleEdit = () => {
-    dispatch(updateUserProfile({ userName: newName })); 
-    setIsEditing(false);
+    if (newUserName) {
+      dispatch(updateUserProfile({ userName: newUserName }));
+      setIsEditing(false);
+    }
   };
-  
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setNewUserName(user ? user.userName : '');
+  };
+
   return (
     <main className="main bg-dark">
-       <div className="header">
-       <h1>Welcome back<br />{user ? user.userName : 'User'}</h1>
-      {isEditing ? (
-        <div>
-          <input
-            type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-          />
-          <button onClick={handleEdit}>Save</button>
-        </div>
-      ) : (
-        <button onClick={() => setIsEditing(true)} className="edit-button">Edit Name</button>
-      )}
-    </div>
+      <div className="header">
+        <h1>Welcome back<br />{user ? `${user.firstName} ${user.lastName}` : 'User'}</h1>
+        {isEditing ? (
+          <form>
+            <div className="input-wrapper">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={newUserName}
+                onChange={(e) => setNewUserName(e.target.value)}
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="firstName">First Name (read-only)</label>
+              <input
+                type="text"
+                id="firstName"
+                value={user ? user.firstName : ''}
+                readOnly
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="lastName">Last Name (read-only)</label>
+              <input
+                type="text"
+                id="lastName"
+                value={user ? user.lastName : ''}
+                readOnly
+              />
+            </div>
+            <div className="buttons-container">
+              <button type="button" onClick={handleEdit} className="save-button">Save</button>
+              <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+            </div>
+          </form>
+        ) : (
+          <button onClick={() => { setIsEditing(true); setNewUserName(user ? user.userName : ''); }} className="edit-button">Edit Username</button>
+        )}
+      </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
@@ -57,7 +88,7 @@ function AccountSummary() {
         <div className="account-content-wrapper">
           <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
           <p className="account-amount">$184.30</p>
-          <p className="account-amount-description">Current Balance</p>
+          <p className="account-amount-description">Current Balance</p> 
         </div>
         <div className="account-content-wrapper cta">
           <button className="transaction-button">View transactions</button>

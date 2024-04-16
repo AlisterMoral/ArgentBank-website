@@ -8,6 +8,11 @@ host: localhost:3001
 basePath: /api/v1
 schemes:
   - http
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
 paths:
   /user/login:
     post:
@@ -116,28 +121,7 @@ paths:
               $ref: "#/definitions/Transaction"
         "500":
           description: Internal Server Error
-    post:
-      tags:
-        - Transactions
-      summary: Create a new transaction
-      description: Adds a new transaction to an account
-      parameters:
-        - in: body
-          name: transaction
-          description: Transaction to add
-          required: true
-          schema:
-            $ref: "#/definitions/NewTransaction"
-      produces:
-        - application/json
-      responses:
-        "201":
-          description: Transaction created
-        "400":
-          description: Invalid transaction data
-        "500":
-          description: Internal Server Error
-  /transactions/{id}:
+  /transaction/{id}:
     get:
       tags:
         - Transactions
@@ -172,7 +156,7 @@ paths:
           required: true
           type: string
         - in: body
-          name: transaction
+          name: body
           description: Updated transaction details
           required: true
           schema:
@@ -186,29 +170,6 @@ paths:
           description: Transaction not found
         "500":
           description: Internal Server Error
-    delete:
-      tags:
-        - Transactions
-      summary: Delete a transaction
-      description: Removes a transaction from the account
-      parameters:
-        - in: path
-          name: id
-          description: ID of the transaction to delete
-          required: true
-          type: string
-      responses:
-        "204":
-          description: Transaction deleted
-        "404":
-          description: Transaction not found
-        "500":
-          description: Internal Server Error
-securityDefinitions:
-  Bearer:
-    type: apiKey
-    name: Authorization
-    in: header
 definitions:
   User:
     type: object
@@ -276,16 +237,16 @@ definitions:
         format: double
       description:
         type: string
-  NewTransaction:
-    type: object
-    properties:
-      accountId:
+      transactionType:
         type: string
-      date:
+        description: Type of the transaction (e.g., debit, credit)
+      category:
         type: string
-        format: date
-      amount:
+        description: Category of the transaction (e.g., groceries, utilities)
+      notes:
+        type: string
+        description: Additional notes about the transaction
+      balance:
         type: number
         format: double
-      description:
-        type: string
+        description: Current balance after the transaction
