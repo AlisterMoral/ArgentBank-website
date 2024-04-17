@@ -148,7 +148,7 @@ paths:
       tags:
         - Transactions
       summary: Update a transaction
-      description: Modifies details of an existing transaction
+      description: Modifies details of an existing transaction, specifically the category and notes.
       parameters:
         - in: path
           name: id
@@ -157,13 +157,24 @@ paths:
           type: string
         - in: body
           name: body
-          description: Updated transaction details
+          description: Payload containing only the modifiable fields (category and notes)
           required: true
           schema:
-            $ref: "#/definitions/Transaction"
+            type: object
+            properties:
+              category:
+                type: string
+                description: New category of the transaction
+              notes:
+                type: string
+                description: New additional notes about the transaction
+      produces:
+        - application/json
       responses:
         "200":
-          description: Transaction updated
+          description: Transaction updated successfully
+          schema:
+            $ref: "#/definitions/Transaction"
         "400":
           description: Invalid transaction data
         "404":
